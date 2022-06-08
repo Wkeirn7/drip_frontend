@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-size: cover;
+  background-image: url('./images/background.svg');
+  width: 100%;
+  height: 0;
+  padding: 0; /* reset */
+  padding-bottom: calc(100% * 3 / 4);
+}
