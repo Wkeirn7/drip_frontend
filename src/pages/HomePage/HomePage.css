@@ -1,0 +1,17 @@
+html .graphList {
+    display: flex;
+    height: 300px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5%;
+}
+
+html .flexChild {
+    width: 100px;
+    height: 100px; 
+    margin: auto;
+}
+
+html .graphButton {
+    margin: 3%;
+}

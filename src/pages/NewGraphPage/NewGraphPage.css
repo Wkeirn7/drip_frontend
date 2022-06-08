@@ -1,0 +1,10 @@
+html .GraphFormArea {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 3%;
+    width: 45%;
+    border: 3px solid rgb(84, 149, 223);
+    border-radius: 40px;
+    padding: 5%;
+    background-color: rgb(221, 245, 255);
+}
