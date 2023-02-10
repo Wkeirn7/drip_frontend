@@ -10,7 +10,9 @@ import './HomePage.css';
 const HomePage = () => {
     const [userGraphs, setUserGraphs] = useState([]);
     const [deleted, setDeleted] = useState(false);
-    const [displayLoading, setDisplayLoading] = useState(false)
+    const [displayLoading, setDisplayLoading] = useState(false);
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+    const [token, setToken] = useState(initializeState);
     const user = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -29,8 +31,7 @@ const HomePage = () => {
         }
 
         const setGraphState = async() =>{
-
-            if(!user.isLoggedIn){
+            if(!token){
                 navigate('/login')
             }else{
                 let graphs = await getUserGraphs(localStorage.getItem('user'))
@@ -38,7 +39,7 @@ const HomePage = () => {
             }
         }
         setGraphState();
-    }, [user, navigate, deleted]);
+    }, [user, navigate, deleted, token]);
 
     const callDeleteGraph = async (token, id) => {
         let resp = await userGraphDelete(token, id)

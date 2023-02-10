@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
 import { userAssetDetail } from '../../api/internal_api';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import './AssetDetailPage.css';
 
 const AssetDetailPage = () => {
     const [asset, setAsset] = useState();
-    const user = useContext(UserContext);
     const navigate = useNavigate();
     let { graphID, assetID } = useParams();
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+    const [token, setToken] = useState(initializeState);
     
     useEffect(() => {
         const getAsset = async (token, graphID, assetID) => {
@@ -23,7 +23,7 @@ const AssetDetailPage = () => {
         }
 
         const setAssetState = async() => {
-            if(!user.isLoggedIn){
+            if(!token){
                 navigate('/login')
             }else{
                 let userAsset = await getAsset(localStorage.getItem('user'), graphID, assetID)

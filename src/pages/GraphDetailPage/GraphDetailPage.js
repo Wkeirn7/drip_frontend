@@ -14,6 +14,8 @@ const GraphDetailPage = (props) => {
   const [avgDiv, setAvgDiv] = useState();
   const [displayLoading, setDisplayLoading] = useState(false);
   const [totalEquity, setTotalEquity] = useState();
+  const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+  const [token, setToken] = useState(initializeState);
   const user = useContext(UserContext);
   const navigate = useNavigate();
   let { graphID } = useParams();
@@ -33,7 +35,7 @@ const GraphDetailPage = (props) => {
     }
     
     const setGraphState = async() =>{
-      if(!user.isLoggedIn){
+      if(!token){
           navigate('/login')
       }else{
           let userGraph = await getGraph(localStorage.getItem('user'), graphID)
@@ -43,7 +45,7 @@ const GraphDetailPage = (props) => {
     
     setGraphState()
     // eslint-disable-next-line
-  }, [user, deleted]);
+  }, [user, deleted, token]);
 
   const callDeleteAsset = async (token, graph, asset) => {
     let resp = await userAssetDelete(token, graph, asset)

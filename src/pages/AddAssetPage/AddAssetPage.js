@@ -1,19 +1,20 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getStockInfo, getStockOverview } from '../../api/third_party_api';
-import UserContext from '../../contexts/UserContext';
 import { saveAsset } from '../../api/internal_api';
 import './AddAssetPage.css';
 
 const AddAssetPage = (props) => {
     let navigate = useNavigate()
-    let user = useContext(UserContext);
     let { graphID } = useParams()
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+    const [token, setToken] = useState(initializeState);
 
     useEffect(() => {
-        if(!user.isLoggedIn){
+        if(!token){
             navigate('/login')
+            localStorage.setItem('user', '');
         }
     });
 

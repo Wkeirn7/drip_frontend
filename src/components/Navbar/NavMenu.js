@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState} from 'react';
 import UserContext from '../../contexts/UserContext';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
@@ -7,15 +7,18 @@ import { useNavigate, Link } from 'react-router-dom';
 const NavMenu = (props) => {
     const user  = useContext(UserContext);
     const navigate = useNavigate()
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+    const [token, setToken] = useState(initializeState);
     
 
     const handleClick = () => {
         props.changeUserStatus('logout');
-        navigate('/login')
+        localStorage.removeItem('user');
+        navigate('/login');
     }
 
     const handleLoginClick = () => {
-        navigate('/login')
+        navigate('/login');
     }
 
     return (

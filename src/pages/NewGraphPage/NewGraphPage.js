@@ -1,5 +1,4 @@
-import React, { useEffect, useContext } from 'react';
-import UserContext from '../../contexts/UserContext.js';
+import React, { useEffect, useState } from 'react';
 import GraphForm from '../../components/GraphForm/GraphForm.js';
 import { newGraph } from '../../api/internal_api.js';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,8 @@ import './NewGraphPage.css';
 
 const NewGraphPage = () => {
     const navigate = useNavigate();
-    const user = useContext(UserContext);
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
+    const [token, setToken] = useState(initializeState);
 
     const callCreateGraph = async (graphData) => {
         if(Number(graphData['reinvestment_amount']) < 1){
@@ -24,10 +24,10 @@ const NewGraphPage = () => {
     }
 
     useEffect(() => {
-        if(!user.isLoggedIn){
+        if(!token){
             navigate('/login')
         }
-    });
+    }, [token]);
 
 
     return (
