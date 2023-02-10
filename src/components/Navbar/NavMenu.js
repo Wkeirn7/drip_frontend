@@ -33,7 +33,7 @@ const NavMenu = (props) => {
 
                     </Nav>
                     { 
-                    user.isLoggedIn 
+                    token 
                     ? <Button onClick={handleClick}>Log out</Button> 
                     : <Button onClick={handleLoginClick}>Log in</Button>
                     }
