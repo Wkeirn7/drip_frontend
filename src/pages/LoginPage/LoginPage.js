@@ -8,7 +8,7 @@ import './LoginPage.css';
 let LoginPage = (props) => {
     const navigate = useNavigate();
     const user = useContext(UserContext);
-    const initializeState = () => !!JSON.parse('"' + localStorage.getItem("user") + '"');
+    const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
     const [token, setToken] = useState(initializeState);
 
     const handleFormSubmit = async (userObj) => {
