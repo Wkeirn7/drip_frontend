@@ -33,7 +33,7 @@ const NavMenu = (props) => {
 
                     </Nav>
                     { 
-                    token 
+                    localStorage.getItem('user')
                     ? <Button onClick={handleClick}>Log out</Button> 
                     : <Button onClick={handleLoginClick}>Log in</Button>
                     }
