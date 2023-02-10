@@ -9,7 +9,7 @@ const AssetDetailPage = () => {
     const navigate = useNavigate();
     let { graphID, assetID } = useParams();
     const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
-    const [token, setToken] = useState(initializeState);
+    const [userToken, setUserToken] = useState(initializeState);
     
     useEffect(() => {
         const getAsset = async (token, graphID, assetID) => {
@@ -23,7 +23,7 @@ const AssetDetailPage = () => {
         }
 
         const setAssetState = async() => {
-            if(!token){
+            if(!userToken){
                 navigate('/login')
             }else{
                 let userAsset = await getAsset(localStorage.getItem('user'), graphID, assetID)

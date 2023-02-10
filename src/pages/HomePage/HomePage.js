@@ -12,7 +12,7 @@ const HomePage = () => {
     const [deleted, setDeleted] = useState(false);
     const [displayLoading, setDisplayLoading] = useState(false);
     const initializeState = () => !!JSON.parse('"' + localStorage.getItem('user') + '"');
-    const [token, setToken] = useState(initializeState);
+    const [userToken, setUserToken] = useState(initializeState);
     const user = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -29,9 +29,8 @@ const HomePage = () => {
                 console.log('api call failed');
             }
         }
-
         const setGraphState = async() =>{
-            if(!token){
+            if(!localStorage.getItem('user')){
                 navigate('/login')
             }else{
                 let graphs = await getUserGraphs(localStorage.getItem('user'))
@@ -39,7 +38,8 @@ const HomePage = () => {
             }
         }
         setGraphState();
-    }, [user, navigate, deleted, token]);
+
+    }, [user, navigate, deleted, userToken]);
 
     const callDeleteGraph = async (token, id) => {
         let resp = await userGraphDelete(token, id)
